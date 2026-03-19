@@ -1,0 +1,2 @@
+2026-03-18 06:47:14  WARNING   shap_analysis           shap not installed — run: pip install shap
+2026-03-18 06:47:14  WARNING   shap_analysis           shap/matplotlib not installed — skipping summary plot.

@@ -1,0 +1,12 @@
+2026-03-18 06:53:22  WARNING   shap_analysis           shap not installed — run: pip install shap
+2026-03-18 06:53:22  WARNING   shap_analysis           shap/matplotlib not installed — skipping summary plot.
+2026-03-18 06:53:22  CRITICAL  pipeline.exception    [run=02825893] [step=init] UNHANDLED EXCEPTION:
+Traceback (most recent call last):
+  File "C:\Users\moham\OneDrive\Desktop\v4 - Copy\main.py", line 699, in <module>
+    main(run_cfg)
+    ~~~~^^^^^^^^^
+  File "C:\Users\moham\OneDrive\Desktop\v4 - Copy\main.py", line 459, in main
+    cost_bps     = BACKTEST.transaction_cost_bps,
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BacktestConfig' object has no attribute 'transaction_cost_bps'
+

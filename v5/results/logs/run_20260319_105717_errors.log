@@ -1,0 +1,40 @@
+2026-03-19 10:57:19  WARNING   features                Class imbalance: 0.0% UP. Applying class weights.
+2026-03-19 10:57:22  WARNING   features                MI fold 0 failed (Unknown label type: continuous. Maybe you are trying to fit a classifier, which expects discrete classes on a regression target with continuous values.) -- using uniform.
+2026-03-19 10:57:22  WARNING   features                MI fold 1 failed (Unknown label type: continuous. Maybe you are trying to fit a classifier, which expects discrete classes on a regression target with continuous values.) -- using uniform.
+2026-03-19 10:57:22  WARNING   features                MI fold 2 failed (Unknown label type: continuous. Maybe you are trying to fit a classifier, which expects discrete classes on a regression target with continuous values.) -- using uniform.
+2026-03-19 10:57:22  WARNING   features                MI fold 3 failed (Unknown label type: continuous. Maybe you are trying to fit a classifier, which expects discrete classes on a regression target with continuous values.) -- using uniform.
+2026-03-19 10:57:22  WARNING   features                MI fold 4 failed (Unknown label type: continuous. Maybe you are trying to fit a classifier, which expects discrete classes on a regression target with continuous values.) -- using uniform.
+2026-03-19 10:59:31  WARNING   ensemble                XGBoost          AUC failed (ValueError: continuous format is not supported) — defaulting to 0.5.
+2026-03-19 10:59:31  WARNING   ensemble                LSTM             AUC failed (ValueError: continuous format is not supported) — defaulting to 0.5.
+2026-03-19 10:59:31  WARNING   ensemble                GRU              AUC failed (ValueError: continuous format is not supported) — defaulting to 0.5.
+2026-03-19 10:59:31  WARNING   ensemble                Transformer      AUC failed (ValueError: continuous format is not supported) — defaulting to 0.5.
+2026-03-19 10:59:31  WARNING   ensemble                TCN              AUC failed (ValueError: continuous format is not supported) — defaulting to 0.5.
+2026-03-19 10:59:31  WARNING   ensemble                Platt calibration failed for 'XGBoost' (ValueError: Unknown label type: continuous. Maybe you are trying to fit a classifier, which expects discrete classes on a regression target with continuous values.) — excluded from calibrated ensemble.
+2026-03-19 10:59:31  WARNING   ensemble                Platt calibration failed for 'LSTM' (ValueError: Unknown label type: continuous. Maybe you are trying to fit a classifier, which expects discrete classes on a regression target with continuous values.) — excluded from calibrated ensemble.
+2026-03-19 10:59:31  WARNING   ensemble                Platt calibration failed for 'GRU' (ValueError: Unknown label type: continuous. Maybe you are trying to fit a classifier, which expects discrete classes on a regression target with continuous values.) — excluded from calibrated ensemble.
+2026-03-19 10:59:31  WARNING   ensemble                Platt calibration failed for 'Transformer' (ValueError: Unknown label type: continuous. Maybe you are trying to fit a classifier, which expects discrete classes on a regression target with continuous values.) — excluded from calibrated ensemble.
+2026-03-19 10:59:31  WARNING   ensemble                Platt calibration failed for 'TCN' (ValueError: Unknown label type: continuous. Maybe you are trying to fit a classifier, which expects discrete classes on a regression target with continuous values.) — excluded from calibrated ensemble.
+2026-03-19 10:59:31  CRITICAL  pipeline.exception    [run=fa7a5ae7] [step=init] UNHANDLED EXCEPTION:
+Traceback (most recent call last):
+  File "C:\Users\moham\OneDrive\Desktop\v5\main.py", line 735, in <module>
+    main(run_cfg)
+    ~~~~^^^^^^^^^
+  File "C:\Users\moham\OneDrive\Desktop\v5\main.py", line 383, in main
+    ens.fit(stack_probs=stack_probs, stack_y=ystack[-N_stk:],
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            val_probs=val_probs,     val_y=yva_e[-N_va:])   # FIX: yva_e = val second half
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\moham\OneDrive\Desktop\v5\ensemble.py", line 282, in fit
+    self._meta.fit(X_stack, stack_y_aligned)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\moham\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sklearn\base.py", line 1336, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+  File "C:\Users\moham\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sklearn\linear_model\_logistic.py", line 1201, in fit
+    check_classification_targets(y)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\moham\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sklearn\utils\multiclass.py", line 221, in check_classification_targets
+    raise ValueError(
+    ...<3 lines>...
+    )
+ValueError: Unknown label type: continuous. Maybe you are trying to fit a classifier, which expects discrete classes on a regression target with continuous values.
+

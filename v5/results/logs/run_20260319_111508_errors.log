@@ -1,0 +1,2 @@
+2026-03-19 11:16:00  WARNING   pipeline                ⚠ DIAGNOSTIC: Walk-forward XGB edge = -0.0092 (negative — XGB underperforms baseline in out-of-sample folds).
+2026-03-19 11:16:00  WARNING   pipeline                1 diagnostic issue(s) found — review warnings above.

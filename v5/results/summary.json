@@ -1,0 +1,193 @@
+{
+  "run_time": "2026-03-19 11:15",
+  "ticker": "AAPL",
+  "version": "v9",
+  "improvements_v9": [
+    "confidence_threshold_fixed_0.0",
+    "single_scaler_pipeline",
+    "deep_model_checkpoints_saved",
+    "model_sizes_halved_no_overfit",
+    "ma_crossover_baseline_included",
+    "regime_conditional_evaluation",
+    "purged_walk_forward",
+    "diagnostic_health_checks"
+  ],
+  "experiment": {
+    "run_hpo": false,
+    "deep_wf": false,
+    "hpo_trials": 20,
+    "multi_ticker": false
+  },
+  "n_features": 60,
+  "pos_weight": 0.8710045662100456,
+  "class_balance_pct_up": 53.44722366333008,
+  "confidence_threshold": 0.0,
+  "models": {
+    "XGBoost": {
+      "accuracy": 0.5169,
+      "auc": 0.5,
+      "f1_up": 0.6774,
+      "brier": 0.2497,
+      "sharpe": -69.847,
+      "sortino": -86.43,
+      "max_dd_pct": -0.04,
+      "win_rate_pct": 54.5,
+      "total_ret_pct": 0.04,
+      "n_trades": 77,
+      "alpha": 0.0002
+    },
+    "LSTM": {
+      "accuracy": 0.5072,
+      "auc": 0.4981,
+      "f1_up": 0.4574,
+      "brier": 0.2505,
+      "sharpe": -33.08,
+      "sortino": -48.44,
+      "max_dd_pct": -0.07,
+      "win_rate_pct": 59.49,
+      "total_ret_pct": 0.15,
+      "n_trades": 80,
+      "alpha": 0.0014
+    },
+    "GRU": {
+      "accuracy": 0.5169,
+      "auc": 0.5025,
+      "f1_up": 0.4898,
+      "brier": 0.2516,
+      "sharpe": -13.993,
+      "sortino": -23.593,
+      "max_dd_pct": -0.15,
+      "win_rate_pct": 60.92,
+      "total_ret_pct": 0.37,
+      "n_trades": 88,
+      "alpha": 0.0033
+    },
+    "Transformer": {
+      "accuracy": 0.4879,
+      "auc": 0.4981,
+      "f1_up": 0.4804,
+      "brier": 0.2525,
+      "sharpe": -21.761,
+      "sortino": -28.64,
+      "max_dd_pct": -0.17,
+      "win_rate_pct": 50.0,
+      "total_ret_pct": -0.01,
+      "n_trades": 107,
+      "alpha": -0.0006
+    },
+    "TCN": {
+      "accuracy": 0.5604,
+      "auc": 0.5722,
+      "f1_up": 0.6224,
+      "brier": 0.2528,
+      "sharpe": -13.048,
+      "sortino": -18.978,
+      "max_dd_pct": -0.33,
+      "win_rate_pct": 48.09,
+      "total_ret_pct": -0.02,
+      "n_trades": 162,
+      "alpha": -0.001
+    },
+    "Ensemble_Equal": {
+      "accuracy": 0.5217,
+      "auc": 0.5336,
+      "f1_up": 0.5308,
+      "brier": 0.2496,
+      "sharpe": -28.668,
+      "sortino": -43.98,
+      "max_dd_pct": -0.1,
+      "win_rate_pct": 50.5,
+      "total_ret_pct": 0.11,
+      "n_trades": 122,
+      "alpha": 0.0009
+    },
+    "Ensemble_AUC": {
+      "accuracy": 0.5314,
+      "auc": 0.5399,
+      "f1_up": 0.553,
+      "brier": 0.2495,
+      "sharpe": -25.183,
+      "sortino": -39.369,
+      "max_dd_pct": -0.1,
+      "win_rate_pct": 49.53,
+      "total_ret_pct": 0.13,
+      "n_trades": 130,
+      "alpha": 0.0011
+    },
+    "Ensemble_Stack": {
+      "accuracy": 0.4783,
+      "auc": 0.48,
+      "f1_up": 0.2059,
+      "brier": 0.2942,
+      "sharpe": -15.303,
+      "sortino": -25.188,
+      "max_dd_pct": -0.19,
+      "win_rate_pct": 51.85,
+      "total_ret_pct": 0.23,
+      "n_trades": 34,
+      "alpha": 0.0023
+    },
+    "Ensemble_Cal": {
+      "accuracy": 0.5266,
+      "auc": 0.5478,
+      "f1_up": 0.6899,
+      "brier": 0.2653,
+      "sharpe": -2.388,
+      "sortino": -3.608,
+      "max_dd_pct": -0.88,
+      "win_rate_pct": 56.31,
+      "total_ret_pct": 1.41,
+      "n_trades": 206,
+      "alpha": 0.0107
+    },
+    "Baseline_MA": {
+      "accuracy": 0.4783,
+      "auc": 0.4732,
+      "f1_up": 0.5345,
+      "brier": 0.5217,
+      "sharpe": -0.373,
+      "sortino": -0.515,
+      "max_dd_pct": -1.83,
+      "win_rate_pct": 59.35,
+      "total_ret_pct": 3.1,
+      "n_trades": 12,
+      "alpha": 0.0292
+    }
+  },
+  "best_model": "TCN",
+  "tomorrow": {
+    "XGBoost": {
+      "direction": "UP",
+      "confidence": 0.5075,
+      "strength": "WEAK"
+    },
+    "LSTM": {
+      "direction": "DOWN",
+      "confidence": 0.4997,
+      "strength": "WEAK"
+    },
+    "GRU": {
+      "direction": "DOWN",
+      "confidence": 0.4862,
+      "strength": "WEAK"
+    },
+    "Transformer": {
+      "direction": "UP",
+      "confidence": 0.5586,
+      "strength": "WEAK"
+    },
+    "TCN": {
+      "direction": "UP",
+      "confidence": 0.5893,
+      "strength": "WEAK"
+    },
+    "Ensemble_Stack": {
+      "direction": "DOWN",
+      "confidence": 0.3271,
+      "strength": "MODERATE"
+    }
+  },
+  "diagnostics": {
+    "issues_found": 1
+  }
+}

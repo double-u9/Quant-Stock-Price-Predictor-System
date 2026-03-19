@@ -1,0 +1,3 @@
+2026-03-19 11:09:42  WARNING   pipeline                ⚠ DIAGNOSTIC: Best AUC across all ML models = 0.5125 (< 0.52). Models are near-random. Consider: more data, different features, or accept that this asset is hard to predict.
+2026-03-19 11:09:42  WARNING   pipeline                ⚠ DIAGNOSTIC: Walk-forward XGB edge = -0.0067 (negative — XGB underperforms baseline in out-of-sample folds).
+2026-03-19 11:09:42  WARNING   pipeline                2 diagnostic issue(s) found — review warnings above.

@@ -1,0 +1,57 @@
+# config.yaml — Human-Editable Configuration Override File
+#
+# V9 changes from V8:
+#   - confidence_threshold: 0.0  (was 0.55 — caused 0 trades, Sharpe = -1M)
+#   - val_ratio: 0.15            (was 0.12 — more validation data)
+#
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# ── Data ──────────────────────────────────────────────────────
+data:
+  ticker: "AAPL"
+  period: "10y"
+  train_ratio: 0.70
+  val_ratio:   0.15     # V9: increased from 0.12
+  seq_len:     50
+  primary_horizon_idx: 0     # 0=tomorrow | 1=next week | 2=next month
+  purge_days:  5        # V9: embargo gap in walk-forward folds
+
+# ── Model training ────────────────────────────────────────────
+model:
+  epochs:        80     # V9: reduced from 120 (faster, less overfit)
+  batch_size:    64
+  lr:            0.0003
+  patience:      15     # V9: reduced from 18
+  threshold:     0.50
+
+# ── Backtest / risk ───────────────────────────────────────────
+backtest:
+  transaction_cost_bps: 5.0
+  risk_free_annual:     0.05
+
+  # ════════════════════════════════════════════════════════════
+  # V9 CRITICAL FIX: confidence_threshold was 0.55
+  #
+  # The old value caused ZERO trades in every backtest because
+  # no model produced probabilities far enough from 0.5 to pass
+  # the |p - 0.5| >= 0.55 check.
+  #
+  # Set to 0.0 = trade on every signal. Once you see real alpha,
+  # you can raise this value to filter for high-confidence only.
+  # Recommended progression: 0.0 → 0.02 → 0.05 → 0.10
+  # ════════════════════════════════════════════════════════════
+  confidence_threshold: 0.0   # was 0.55 — caused Sharpe = -1,000,000
+
+  use_kelly:            true
+  kelly_fraction:       0.20  # V9: more conservative, was 0.25
+
+# ── Experiment flags ──────────────────────────────────────────
+experiment:
+  run_hpo:      false
+  deep_wf:      false
+  hpo_trials:   20
+  run_baseline: true    # V9: always compare vs MA-crossover baseline
+
+# ── Output paths ──────────────────────────────────────────────
+paths:
+  results_dir: "results"

@@ -1,0 +1,296 @@
+2026-03-18 06:52:48  INFO      pipeline              [run=02825893] Logging initialised  logfile=results\logs\run_20260318_065248.log  errfile=results\logs\run_20260318_065248_errors.log  json_events=False
+2026-03-18 06:52:49  DEBUG     matplotlib            matplotlib data path: C:\Users\moham\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\matplotlib\mpl-data
+2026-03-18 06:52:49  DEBUG     matplotlib            CONFIGDIR=C:\Users\moham\.matplotlib
+2026-03-18 06:52:49  DEBUG     matplotlib            interactive is False
+2026-03-18 06:52:49  DEBUG     matplotlib            platform is win32
+2026-03-18 06:52:49  DEBUG     matplotlib            CACHEDIR=C:\Users\moham\.matplotlib
+2026-03-18 06:52:49  DEBUG     matplotlib.font_manager  Using fontManager instance from C:\Users\moham\.matplotlib\fontlist-v390.json
+2026-03-18 06:52:49  INFO      pipeline              
+============================================================
+  Quant Forecasting System v9  >  AAPL  >  2026-03-18 06:52
+============================================================
+2026-03-18 06:52:49  INFO      pipeline                Device=cpu  Seed=42
+2026-03-18 06:52:49  INFO      pipeline                confidence_threshold=0.0  (0.0 = execute all signals, raise after confirming alpha)
+2026-03-18 06:52:49  INFO      pipeline                RunConfig — HPO=False  HPO_trials=20  DeepWF=False  MultiTicker=False
+2026-03-18 06:52:49  INFO      pipeline              [run=02825893] ENVIRONMENT
+  Python  : 3.14.3 (tags/v3.14.3:323c59a, Feb  3 2026, 16:04:56) [MSC v.1944 64 bit (AMD64)]
+  Platform: Windows-11-10.0.26200-SP0
+  GPU     : CPU only
+  RAM     : unknown
+  Packages: numpy=2.4.3  pandas=3.0.1  sklearn=1.8.0  torch=2.10.0+cpu  xgboost=3.2.0  scipy=1.17.1  optuna=not installed  yfinance=1.2.0
+2026-03-18 06:52:49  INFO      pipeline              [run=02825893] RUN CONFIG
+    ticker                         = AAPL
+    period                         = 10y
+    train_ratio                    = 0.7
+    val_ratio                      = 0.15
+    tickers                        = ('AAPL',)
+    horizons                       = (1, 3, 5)
+    seq_len                        = 50
+    return_lags                    = (1, 2, 3, 5, 10, 20)
+    sma_windows                    = (5, 10, 20, 50, 100, 200)
+    rsi_periods                    = (7, 14, 21)
+    bb_windows                     = (10, 20)
+    vol_windows                    = (5, 10, 20, 60)
+    roc_periods                    = (5, 10, 20)
+    regime_window                  = 60
+    primary_horizon_idx            = 0
+    feature_selection_k            = 60
+    purge_days                     = 5
+    epochs                         = 80
+    batch_size                     = 64
+    lr                             = 0.0003
+    weight_decay                   = 0.0001
+    patience                       = 15
+    threshold                      = 0.5
+    class_weight_mode              = balanced
+    lstm_hidden                    = 64
+    lstm_layers                    = 2
+    lstm_dropout                   = 0.3
+    tf_d_model                     = 64
+    tf_nhead                       = 4
+    tf_layers                      = 2
+    tf_dropout                     = 0.15
+    tf_dim_ff                      = 128
+    tcn_channels                   = 32
+    tcn_levels                     = 4
+    tcn_kernel                     = 3
+    tcn_dropout                    = 0.2
+    xgb_params                     = {'n_estimators': 600, 'max_depth': 3, 'learning_rate': 0.02, 'subsample': 0.75, 'colsample_bytree': 0.7, 'min_child_weight': 5, 'gamma': 0.2, 'reg_alpha': 0.15, 'reg_lambda': 1.5, 'random_state': 42, 'eval_metric': 'logloss', 'early_stopping_rounds': 40, 'verbosity': 0}
+    n_walks                        = 8
+    commission_bps                 = 1.0
+    slippage_bps                   = 2.0
+    impact_coeff                   = 0.1
+    adv_shares                     = 10000000.0
+    trade_size_shares              = 1000
+    risk_free_annual               = 0.05
+    confidence_threshold           = 0.0
+    use_kelly                      = True
+    kelly_fraction                 = 0.2
+    max_position                   = 1.0
+    stop_loss_pct                  = 0.05
+    run_hpo                        = False
+    deep_wf                        = False
+    hpo_trials                     = 20
+    multi_ticker                   = False
+2026-03-18 06:52:49  INFO      pipeline              
+============================================================
+  STEP 1 / 10  --  Data & Feature Engineering (Leakage-Free)
+============================================================
+2026-03-18 06:52:49  INFO      data_loader             Fetching AAPL (10y) from Yahoo Finance ...
+2026-03-18 06:52:49  DEBUG     yfinance              Entering download()
+2026-03-18 06:52:49  DEBUG     yfinance              Disabling multithreading because DEBUG logging enabled
+2026-03-18 06:52:49  DEBUG     yfinance               Entering history()
+2026-03-18 06:52:49  DEBUG     peewee                ('CREATE TABLE IF NOT EXISTS "_tz_kv" ("key" VARCHAR(255) NOT NULL PRIMARY KEY, "value" VARCHAR(255)) WITHOUT ROWID', [])
+2026-03-18 06:52:49  DEBUG     peewee                ('SELECT "t1"."key", "t1"."value" FROM "_tz_kv" AS "t1" WHERE ("t1"."key" = ?) LIMIT ? OFFSET ?', ['AAPL', 1, 0])
+2026-03-18 06:52:49  DEBUG     yfinance                Entering history()
+2026-03-18 06:52:49  DEBUG     yfinance              AAPL: Yahoo GET parameters: {'range': '10y', 'interval': '1d', 'includePrePost': False, 'events': 'div,splits,capitalGains'}
+2026-03-18 06:52:49  DEBUG     yfinance                 Entering get()
+2026-03-18 06:52:49  DEBUG     yfinance                  Entering _make_request()
+2026-03-18 06:52:49  DEBUG     yfinance              url=https://query2.finance.yahoo.com/v8/finance/chart/AAPL
+2026-03-18 06:52:49  DEBUG     yfinance              params={'range': '10y', 'interval': '1d', 'includePrePost': False, 'events': 'div,splits,capitalGains'}
+2026-03-18 06:52:49  DEBUG     yfinance                   Entering _get_cookie_and_crumb()
+2026-03-18 06:52:49  DEBUG     yfinance              cookie_mode = 'basic'
+2026-03-18 06:52:49  DEBUG     yfinance                    Entering _get_cookie_and_crumb_basic()
+2026-03-18 06:52:49  DEBUG     yfinance                     Entering _get_cookie_basic()
+2026-03-18 06:52:49  DEBUG     yfinance                      Entering _load_cookie_curlCffi()
+2026-03-18 06:52:49  DEBUG     peewee                ('CREATE TABLE IF NOT EXISTS "_cookieschema" ("strategy" VARCHAR(255) NOT NULL PRIMARY KEY, "fetch_date" DATETIME NOT NULL, "cookie_bytes" BLOB NOT NULL) WITHOUT ROWID', [])
+2026-03-18 06:52:49  DEBUG     peewee                ('SELECT "t1"."strategy", "t1"."fetch_date", "t1"."cookie_bytes" FROM "_cookieschema" AS "t1" WHERE ("t1"."strategy" = ?) LIMIT ? OFFSET ?', ['curlCffi', 1, 0])
+2026-03-18 06:52:49  DEBUG     yfinance                      Exiting _load_cookie_curlCffi()
+2026-03-18 06:52:49  DEBUG     yfinance              reusing persistent cookie
+2026-03-18 06:52:49  DEBUG     yfinance                     Exiting _get_cookie_basic()
+2026-03-18 06:52:49  DEBUG     yfinance                     Entering _get_crumb_basic()
+2026-03-18 06:52:49  DEBUG     yfinance                      Entering _get_cookie_basic()
+2026-03-18 06:52:49  DEBUG     yfinance              reusing cookie
+2026-03-18 06:52:49  DEBUG     yfinance                      Exiting _get_cookie_basic()
+2026-03-18 06:52:49  DEBUG     yfinance              crumb = 'OxlHf5YMYsB'
+2026-03-18 06:52:49  DEBUG     yfinance                     Exiting _get_crumb_basic()
+2026-03-18 06:52:49  DEBUG     yfinance                    Exiting _get_cookie_and_crumb_basic()
+2026-03-18 06:52:49  DEBUG     yfinance                   Exiting _get_cookie_and_crumb()
+2026-03-18 06:52:50  DEBUG     yfinance              response code=200
+2026-03-18 06:52:50  DEBUG     yfinance                  Exiting _make_request()
+2026-03-18 06:52:50  DEBUG     yfinance                 Exiting get()
+2026-03-18 06:52:50  DEBUG     yfinance              AAPL: yfinance received OHLC data: 2016-03-18 13:30:00 -> 2026-03-17 20:00:02
+2026-03-18 06:52:50  DEBUG     yfinance              AAPL: OHLC after cleaning: 2016-03-18 09:30:00-04:00 -> 2026-03-17 16:00:02-04:00
+2026-03-18 06:52:50  DEBUG     yfinance              AAPL: OHLC after combining events: 2016-03-18 00:00:00-04:00 -> 2026-03-17 00:00:00-04:00
+2026-03-18 06:52:50  DEBUG     yfinance              AAPL: yfinance returning OHLC: 2016-03-18 00:00:00-04:00 -> 2026-03-17 00:00:00-04:00
+2026-03-18 06:52:50  DEBUG     yfinance                Exiting history()
+2026-03-18 06:52:50  DEBUG     yfinance               Exiting history()
+2026-03-18 06:52:50  DEBUG     yfinance              Exiting download()
+2026-03-18 06:52:50  INFO      data_loader             Raw download: 2513 rows, columns: ['Close', 'High', 'Low', 'Open', 'Volume']
+2026-03-18 06:52:50  INFO      data_loader             validate_ohlcv: 'AAPL' — 2513 clean bars  (2016-03-18 → 2026-03-17)
+2026-03-18 06:52:50  INFO      features                [V8] Features=109  Targets=['target_1d', 'target_3d', 'target_5d']
+2026-03-18 06:52:50  INFO      features                Train=1639  Val=257  Test=257
+2026-03-18 06:52:50  INFO      features                UP%: tr=53.4%  va=54.9%  te=52.5%
+2026-03-18 06:52:50  INFO      pipeline                Primary target: target_1d  (1-day)
+2026-03-18 06:52:50  INFO      pipeline              
+============================================================
+  STEP 2 / 10  --  Class Imbalance & Weights
+============================================================
+2026-03-18 06:52:50  INFO      pipeline                UP% train=53.4%  pos_weight=0.873
+2026-03-18 06:52:50  INFO      pipeline              
+============================================================
+  STEP 3 / 10  --  Walk-Forward Validation (Purged)
+============================================================
+2026-03-18 06:52:50  INFO      data_loader             Fetching AAPL (10y) from Yahoo Finance ...
+2026-03-18 06:52:50  DEBUG     yfinance              Entering download()
+2026-03-18 06:52:50  DEBUG     yfinance              Disabling multithreading because DEBUG logging enabled
+2026-03-18 06:52:50  DEBUG     yfinance               Entering history()
+2026-03-18 06:52:50  DEBUG     peewee                ('SELECT "t1"."key", "t1"."value" FROM "_tz_kv" AS "t1" WHERE ("t1"."key" = ?) LIMIT ? OFFSET ?', ['AAPL', 1, 0])
+2026-03-18 06:52:50  DEBUG     yfinance                Entering history()
+2026-03-18 06:52:50  DEBUG     yfinance              AAPL: Yahoo GET parameters: {'range': '10y', 'interval': '1d', 'includePrePost': False, 'events': 'div,splits,capitalGains'}
+2026-03-18 06:52:50  DEBUG     yfinance                 Entering get()
+2026-03-18 06:52:50  DEBUG     yfinance                  Entering _make_request()
+2026-03-18 06:52:50  DEBUG     yfinance              url=https://query2.finance.yahoo.com/v8/finance/chart/AAPL
+2026-03-18 06:52:50  DEBUG     yfinance              params={'range': '10y', 'interval': '1d', 'includePrePost': False, 'events': 'div,splits,capitalGains'}
+2026-03-18 06:52:50  DEBUG     yfinance                   Entering _get_cookie_and_crumb()
+2026-03-18 06:52:50  DEBUG     yfinance              cookie_mode = 'basic'
+2026-03-18 06:52:50  DEBUG     yfinance                    Entering _get_cookie_and_crumb_basic()
+2026-03-18 06:52:50  DEBUG     yfinance                     Entering _get_cookie_basic()
+2026-03-18 06:52:50  DEBUG     yfinance              reusing cookie
+2026-03-18 06:52:50  DEBUG     yfinance                     Exiting _get_cookie_basic()
+2026-03-18 06:52:50  DEBUG     yfinance                     Entering _get_crumb_basic()
+2026-03-18 06:52:50  DEBUG     yfinance              reusing crumb
+2026-03-18 06:52:50  DEBUG     yfinance                     Exiting _get_crumb_basic()
+2026-03-18 06:52:50  DEBUG     yfinance                    Exiting _get_cookie_and_crumb_basic()
+2026-03-18 06:52:50  DEBUG     yfinance                   Exiting _get_cookie_and_crumb()
+2026-03-18 06:52:50  DEBUG     yfinance              response code=200
+2026-03-18 06:52:50  DEBUG     yfinance                  Exiting _make_request()
+2026-03-18 06:52:50  DEBUG     yfinance                 Exiting get()
+2026-03-18 06:52:50  DEBUG     yfinance              AAPL: yfinance received OHLC data: 2016-03-18 13:30:00 -> 2026-03-17 20:00:02
+2026-03-18 06:52:50  DEBUG     yfinance              AAPL: OHLC after cleaning: 2016-03-18 09:30:00-04:00 -> 2026-03-17 16:00:02-04:00
+2026-03-18 06:52:50  DEBUG     yfinance              AAPL: OHLC after combining events: 2016-03-18 00:00:00-04:00 -> 2026-03-17 00:00:00-04:00
+2026-03-18 06:52:50  DEBUG     yfinance              AAPL: yfinance returning OHLC: 2016-03-18 00:00:00-04:00 -> 2026-03-17 00:00:00-04:00
+2026-03-18 06:52:50  DEBUG     yfinance                Exiting history()
+2026-03-18 06:52:50  DEBUG     yfinance               Exiting history()
+2026-03-18 06:52:51  DEBUG     yfinance              Exiting download()
+2026-03-18 06:52:51  INFO      data_loader             Raw download: 2513 rows, columns: ['Close', 'High', 'Low', 'Open', 'Volume']
+2026-03-18 06:52:51  INFO      data_loader             validate_ohlcv: 'AAPL' — 2513 clean bars  (2016-03-18 → 2026-03-17)
+2026-03-18 06:52:51  INFO      walk_forward            Fold 1/8  tr=885d  purge=5d  te=63d  UP=54%  pos_weight=0.84
+2026-03-18 06:52:51  INFO      walk_forward            Fold 1/8  XGB acc=49.2%  auc=0.515  ic=-0.0409  baseline=47.6%  edge=+0.016
+2026-03-18 06:52:51  INFO      walk_forward            Fold 2/8  tr=1073d  purge=5d  te=63d  UP=55%  pos_weight=0.83
+2026-03-18 06:52:51  INFO      walk_forward            Fold 2/8  XGB acc=42.9%  auc=0.459  ic=+0.0423  baseline=39.7%  edge=+0.032
+2026-03-18 06:52:51  INFO      walk_forward            Fold 3/8  tr=1261d  purge=5d  te=63d  UP=54%  pos_weight=0.85
+2026-03-18 06:52:51  INFO      walk_forward            Fold 3/8  XGB acc=52.4%  auc=0.622  ic=-0.1833  baseline=44.4%  edge=+0.079
+2026-03-18 06:52:51  INFO      walk_forward            Fold 4/8  tr=1449d  purge=5d  te=63d  UP=54%  pos_weight=0.86
+2026-03-18 06:52:51  INFO      walk_forward            Fold 4/8  XGB acc=50.8%  auc=0.481  ic=-0.2912  baseline=61.9%  edge=-0.111
+2026-03-18 06:52:52  INFO      walk_forward            Fold 5/8  tr=1637d  purge=5d  te=63d  UP=53%  pos_weight=0.88
+2026-03-18 06:52:52  INFO      walk_forward            Fold 5/8  XGB acc=55.6%  auc=0.499  ic=-0.1274  baseline=50.8%  edge=+0.048
+2026-03-18 06:52:52  INFO      walk_forward            Fold 6/8  tr=1825d  purge=5d  te=63d  UP=54%  pos_weight=0.87
+2026-03-18 06:52:52  INFO      walk_forward            Fold 6/8  XGB acc=38.1%  auc=0.486  ic=-0.1369  baseline=33.3%  edge=+0.048
+2026-03-18 06:52:52  INFO      walk_forward            Fold 7/8  tr=2013d  purge=5d  te=63d  UP=54%  pos_weight=0.86
+2026-03-18 06:52:52  INFO      walk_forward            Fold 7/8  XGB acc=47.6%  auc=0.448  ic=+0.0639  baseline=52.4%  edge=-0.048
+2026-03-18 06:52:52  INFO      walk_forward            Fold 8/8  tr=2201d  purge=5d  te=63d  UP=54%  pos_weight=0.87
+2026-03-18 06:52:52  INFO      walk_forward            Fold 8/8  XGB acc=46.0%  auc=0.427  ic=-0.0921  baseline=49.2%  edge=-0.032
+2026-03-18 06:52:52  INFO      walk_forward          
+  Walk-Forward Summary (8 folds, purge=5d):
+  XGB  : acc=47.8% ± 5.5%  AUC=0.492  IC=-0.0957
+  Baseline (MA 5/20): acc=47.4% ± 8.6%
+  XGB edge over baseline: +0.004 ± 0.063  (POSITIVE)
+2026-03-18 06:52:52  INFO      pipeline              
+============================================================
+  STEP 4 / 10  --  Feature Selection (MI + XGB) + Single Scaler
+============================================================
+2026-03-18 06:52:52  INFO      features                [FeatureSelection] Scoring 109 features → keeping top 60 (inner_folds=5)
+2026-03-18 06:52:53  DEBUG     features                Fold 0: trained on 546 rows (cut=546/1639)
+2026-03-18 06:52:53  DEBUG     features                Fold 1: trained on 819 rows (cut=819/1639)
+2026-03-18 06:52:53  DEBUG     features                Fold 2: trained on 1092 rows (cut=1092/1639)
+2026-03-18 06:52:53  DEBUG     features                Fold 3: trained on 1365 rows (cut=1365/1639)
+2026-03-18 06:52:53  DEBUG     features                Fold 4: trained on 1638 rows (cut=1638/1639)
+2026-03-18 06:52:53  INFO      features                [FeatureSelection] XGB scores averaged over 5/5 folds.
+2026-03-18 06:52:53  INFO      features                [FeatureSelection] 109 → 60 features. Top-5: ['zscore_120', 'price_vs_ema_26', 'stoch_d', 'price_vs_ema_9', 'price_vs_ema_12']
+2026-03-18 06:52:53  INFO      pipeline                Features after selection: 60
+2026-03-18 06:52:53  INFO      pipeline                Single scaler fitted on 60 selected features.
+2026-03-18 06:52:54  INFO      pipeline              
+============================================================
+  STEP 5 / 10  --  Scaling & Sequence Generation
+============================================================
+2026-03-18 06:52:54  INFO      pipeline                DeepTrain=1,272  Stack=317  Val=207  Test=207
+2026-03-18 06:52:54  INFO      pipeline              
+============================================================
+  STEP 6 / 10  --  Training Models
+============================================================
+2026-03-18 06:52:54  INFO      pipeline              
+  XGBoost (scale_pos_weight=0.873) ...
+2026-03-18 06:52:54  INFO      pipeline              
+  lstm (pos_weight=0.873) ...
+2026-03-18 06:52:54  INFO      pipeline                Params: 77,625
+2026-03-18 06:52:54  INFO      trainer                 lstm  device=cpu  AMP=False  lr=3.00e-04  pos_weight=0.87  warmup=5ep  patience=15
+2026-03-18 06:52:55  INFO      trainer                 Epoch   1/80  train=0.6179  val=0.6457  lr=6.00e-05  grad=0.182
+2026-03-18 06:52:55  INFO      trainer                 Epoch   2/80  train=0.6176  val=0.6455  lr=1.20e-04  grad=0.163
+2026-03-18 06:52:55  INFO      trainer                 Epoch   3/80  train=0.6174  val=0.6455  lr=1.80e-04  grad=0.162
+2026-03-18 06:52:57  INFO      trainer                 Epoch  10/80  train=0.6129  val=0.6505  lr=1.24e-04  grad=0.177
+2026-03-18 06:53:00  INFO      trainer                 Early stop epoch=18  best_val=0.6455  best_epoch=3
+2026-03-18 06:53:00  INFO      trainer                 lstm done  best_epoch=3  best_val=0.6455
+2026-03-18 06:53:00  INFO      pipeline                Saved lstm checkpoint → results\checkpoints\lstm.pt
+2026-03-18 06:53:00  INFO      pipeline              
+  gru (pos_weight=0.873) ...
+2026-03-18 06:53:00  INFO      pipeline                Params: 60,985
+2026-03-18 06:53:00  INFO      trainer                 gru  device=cpu  AMP=False  lr=3.00e-04  pos_weight=0.87  warmup=5ep  patience=15
+2026-03-18 06:53:00  INFO      trainer                 Epoch   1/80  train=0.6191  val=0.6472  lr=6.00e-05  grad=0.317
+2026-03-18 06:53:01  INFO      trainer                 Epoch   2/80  train=0.6166  val=0.6471  lr=1.20e-04  grad=0.330
+2026-03-18 06:53:01  INFO      trainer                 Epoch   3/80  train=0.6153  val=0.6452  lr=1.80e-04  grad=0.315
+2026-03-18 06:53:05  INFO      trainer                 Epoch  10/80  train=0.6132  val=0.6501  lr=1.24e-04  grad=0.306
+2026-03-18 06:53:10  INFO      trainer                 Early stop epoch=18  best_val=0.6452  best_epoch=3
+2026-03-18 06:53:10  INFO      trainer                 gru done  best_epoch=3  best_val=0.6452
+2026-03-18 06:53:10  INFO      pipeline                Saved gru checkpoint → results\checkpoints\gru.pt
+2026-03-18 06:53:10  INFO      pipeline              
+  transformer (pos_weight=0.873) ...
+2026-03-18 06:53:10  INFO      pipeline                Params: 88,449
+2026-03-18 06:53:10  INFO      trainer                 transformer  device=cpu  AMP=False  lr=3.00e-04  pos_weight=0.87  warmup=5ep  patience=15
+2026-03-18 06:53:10  INFO      trainer                 Epoch   1/80  train=0.6260  val=0.6530  lr=6.00e-05  grad=0.375
+2026-03-18 06:53:12  INFO      trainer                 Epoch  10/80  train=0.6026  val=0.6705  lr=6.20e-05  grad=0.363
+2026-03-18 06:53:13  INFO      trainer                 Early stop epoch=16  best_val=0.6530  best_epoch=1
+2026-03-18 06:53:14  INFO      trainer                 transformer done  best_epoch=1  best_val=0.6530
+2026-03-18 06:53:14  INFO      pipeline                Saved transformer checkpoint → results\checkpoints\transformer.pt
+2026-03-18 06:53:14  INFO      pipeline              
+  tcn (pos_weight=0.873) ...
+2026-03-18 06:53:14  INFO      pipeline                Params: 30,529
+2026-03-18 06:53:14  INFO      trainer                 tcn  device=cpu  AMP=False  lr=3.00e-04  pos_weight=0.87  warmup=5ep  patience=15
+2026-03-18 06:53:14  INFO      trainer                 Epoch   1/80  train=0.6241  val=0.7331  lr=6.00e-05  grad=1.395
+2026-03-18 06:53:14  INFO      trainer                 Epoch   2/80  train=0.6228  val=0.7172  lr=1.20e-04  grad=1.333
+2026-03-18 06:53:15  INFO      trainer                 Epoch   3/80  train=0.6293  val=0.6862  lr=1.80e-04  grad=1.312
+2026-03-18 06:53:15  INFO      trainer                 Epoch   4/80  train=0.6146  val=0.6682  lr=2.40e-04  grad=1.216
+2026-03-18 06:53:16  INFO      trainer                 Epoch   5/80  train=0.6148  val=0.6610  lr=3.00e-04  grad=1.140
+2026-03-18 06:53:18  INFO      trainer                 Epoch  10/80  train=0.6130  val=0.6733  lr=1.24e-04  grad=1.105
+2026-03-18 06:53:22  INFO      trainer                 Epoch  20/80  train=0.6026  val=0.7044  lr=2.25e-04  grad=1.118
+2026-03-18 06:53:22  INFO      trainer                 Early stop epoch=20  best_val=0.6610  best_epoch=5
+2026-03-18 06:53:22  INFO      trainer                 tcn done  best_epoch=5  best_val=0.6610
+2026-03-18 06:53:22  INFO      pipeline                Saved tcn checkpoint → results\checkpoints\tcn.pt
+2026-03-18 06:53:22  INFO      pipeline              
+============================================================
+  STEP 7 / 10  --  Ensemble
+============================================================
+2026-03-18 06:53:22  INFO      ensemble                XGBoost          val AUC = 0.3958
+2026-03-18 06:53:22  INFO      ensemble                LSTM             val AUC = 0.5098
+2026-03-18 06:53:22  INFO      ensemble                GRU              val AUC = 0.5267
+2026-03-18 06:53:22  INFO      ensemble                Transformer      val AUC = 0.5029
+2026-03-18 06:53:22  INFO      ensemble                TCN              val AUC = 0.5111
+2026-03-18 06:53:22  INFO      ensemble                AUC weights: XGBoost=0.139  LSTM=0.185  GRU=0.237  Transformer=0.216  TCN=0.223
+2026-03-18 06:53:22  INFO      ensemble                Meta-weights: XGBoost=+0.2882  LSTM=+0.1786  GRU=-0.1992  Transformer=+0.0930  TCN=-0.0077
+2026-03-18 06:53:22  INFO      pipeline                Saved scaler.joblib (joblib + SHA-256 sidecar)
+2026-03-18 06:53:22  INFO      pipeline                Saved xgboost.json (native XGBoost JSON — no pickle)
+2026-03-18 06:53:22  INFO      pipeline                Saved features.json (60 features)
+2026-03-18 06:53:22  INFO      pipeline                Saved ensemble.joblib (joblib + SHA-256 sidecar)
+2026-03-18 06:53:22  INFO      pipeline                All checkpoints saved with safe serialization (no pickle).
+2026-03-18 06:53:22  INFO      pipeline              
+============================================================
+  STEP 8 / 10  --  SHAP Explainability
+============================================================
+2026-03-18 06:53:22  WARNING   shap_analysis           shap not installed — run: pip install shap
+2026-03-18 06:53:22  WARNING   shap_analysis           shap/matplotlib not installed — skipping summary plot.
+2026-03-18 06:53:22  INFO      pipeline                SHAP analysis complete → results\shap/
+2026-03-18 06:53:22  INFO      pipeline              
+============================================================
+  STEP 8b / 10  --  Evaluation
+============================================================
+2026-03-18 06:53:22  INFO      pipeline                Baseline MA 5/20 added (length=207)
+2026-03-18 06:53:22  CRITICAL  pipeline.exception    [run=02825893] [step=init] UNHANDLED EXCEPTION:
+Traceback (most recent call last):
+  File "C:\Users\moham\OneDrive\Desktop\v4 - Copy\main.py", line 699, in <module>
+    main(run_cfg)
+    ~~~~^^^^^^^^^
+  File "C:\Users\moham\OneDrive\Desktop\v4 - Copy\main.py", line 459, in main
+    cost_bps     = BACKTEST.transaction_cost_bps,
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BacktestConfig' object has no attribute 'transaction_cost_bps'
+
